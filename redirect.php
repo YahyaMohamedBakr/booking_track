@@ -1,16 +1,17 @@
 <?php
 
+//get_header(dirname('header.php'));
+// $headers = getallheaders();
 
- // $headers = getallheaders();
-
-  //  $host =$headers['Host'];
+//  $host =$headers['Host'];
 
 
-   //wp_clear_auth_cookie();
+//wp_clear_auth_cookie();
 
-   // get token from link
+// get token from link
 
 // ob_start();
+
 $email = isset($_GET['email']) ? ($_GET['email']) : '';
 $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';
 $token = isset($_GET['token']) ? $_GET['token'] : '';
@@ -24,6 +25,9 @@ if (empty($email) || empty($booking_id) || empty($token)) {
     echo '<h1>Invalid one or more values</h1>';
      return;
 }
+
+
+
 
 //if (check_valid_token($booking_id, $token)) {
     $user = get_user_by('email', $email);
@@ -42,19 +46,23 @@ if (empty($email) || empty($booking_id) || empty($token)) {
         $user_id = wp_insert_user($userdata);
     } else {
         $user_id = $user->ID;
-
     }
-
+//}
     wp_set_current_user($user_id);
 
     wp_set_auth_cookie($user_id, false);
 
-   // do_action('wp_login', $user->user_login, $user);
-   
-//    ob_end_clean();
+    
 
-   // wp_redirect(site_url().'/test-2');
-   // exit;
+    global $wpdb;
+
+    //header('Location: '.site_url().'/dashboard/?sc=booking-history');
+    $wpdb->query($wpdb->prepare("UPDATE wp_st_order_item_meta SET user_id='$user_id' WHERE order_item_id='$booking_id'"));
+
+
+   wp_redirect(site_url().'/dashboard/?sc=booking-history');
+    
+    exit;
 // } else {
 //     echo '<h1>Invalid Token</h1>';
 // }

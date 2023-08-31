@@ -3,7 +3,7 @@
   /**
    * submit form php 
    * 
-   */
+   **/
   
    
    if (isset($_GET['submit'])) {
@@ -11,6 +11,10 @@
        $submitted_email = isset($_GET['submitted_email']) ? $_GET['submitted_email'] : '';
    
        $booking = get_post_meta($booking_id);
+    //    echo'<pre>';
+    //    var_dump($booking);
+    //    echo'</pre>';
+
        $guest_email = $booking["st_email"][0];
    
        if ($booking && $guest_email == urldecode($submitted_email)) {
