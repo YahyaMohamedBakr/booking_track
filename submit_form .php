@@ -39,6 +39,7 @@
            echo 'Invalid email or booking';
        }
    }
+
    
     // if(isset($_GET['submit'])){
     // $booking_id = isset($_GET['booking_id'])? $_GET['booking_id'] : '';

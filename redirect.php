@@ -1,4 +1,12 @@
 <?php
+// function disable_specific_template() {
+//     $template = basename(locate_template('header.php'));
+
+//     if ($template) {
+//         wp_die('This template is disabled.');
+//     }
+// }
+// add_action('template_redirect', 'disable_specific_template');
 
 //get_header(dirname('header.php'));
 // $headers = getallheaders();
