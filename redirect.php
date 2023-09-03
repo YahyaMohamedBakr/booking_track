@@ -1,4 +1,7 @@
 <?php
+
+
+
 // function disable_specific_template() {
 //     $template = basename(locate_template('header.php'));
 
@@ -64,13 +67,12 @@ if (empty($email) || empty($booking_id) || empty($token)) {
 
     global $wpdb;
 
-    //header('Location: '.site_url().'/dashboard/?sc=booking-history');
     $wpdb->query($wpdb->prepare("UPDATE wp_st_order_item_meta SET user_id='$user_id' WHERE order_item_id='$booking_id'"));
 
 
    wp_redirect(site_url().'/dashboard/?sc=booking-history');
     
-    exit;
+   exit;
 // } else {
 //     echo '<h1>Invalid Token</h1>';
 // }
