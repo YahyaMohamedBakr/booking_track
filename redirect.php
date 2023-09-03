@@ -1,78 +1,71 @@
 <?php
+  /**
+   * redirect page 
+   * 
+   **/
 
 
-
-// function disable_specific_template() {
-//     $template = basename(locate_template('header.php'));
-
-//     if ($template) {
-//         wp_die('This template is disabled.');
-//     }
-// }
-// add_action('template_redirect', 'disable_specific_template');
-
-//get_header(dirname('header.php'));
-// $headers = getallheaders();
-
-//  $host =$headers['Host'];
-
-
-//wp_clear_auth_cookie();
-
-// get token from link
-
-// ob_start();
-
-$email = isset($_GET['email']) ? ($_GET['email']) : '';
-$booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';
-$token = isset($_GET['token']) ? $_GET['token'] : '';
-
-
-
-
-if (empty($email) || empty($booking_id) || empty($token)) {
-
-   
-    echo '<h1>Invalid one or more values</h1>';
-     return;
-}
-
-
-
-
-//if (check_valid_token($booking_id, $token)) {
-    $user = get_user_by('email', $email);
-
-    if (empty($user)) {
-        $username = substr($email, 0, strpos($email, '@'));
-        $password = wp_generate_password();
-        
-        $userdata = array(
-            'user_login' => $username,
-            'user_email' => $email,
-            'user_pass' => $password,
-            'role' => 'subscriber'
-        );
-        
-        $user_id = wp_insert_user($userdata);
-    } else {
-        $user_id = $user->ID;
+add_action( 'rest_api_init', function () {
+    register_rest_route( 'booking','/getbookingedites', array(
+      'methods' => 'GET',
+      'callback' => 'get_booking_edites',
+      'permission_callback' => '__return_true'
+    ));
+  });
+  
+  function get_booking_edites(){
+      
+    $email = isset($_GET['email']) ? ($_GET['email']) : '';
+    $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';
+    $token = isset($_GET['token']) ? $_GET['token'] : '';
+    
+    
+    if (empty($email) || empty($booking_id) || empty($token)) {
+    
+       
+        echo '<h1>Invalid one or more values</h1>';
+         return;
     }
-//}
-    wp_set_current_user($user_id);
-
-    wp_set_auth_cookie($user_id, false);
-
     
-
-    global $wpdb;
-
-    $wpdb->query($wpdb->prepare("UPDATE wp_st_order_item_meta SET user_id='$user_id' WHERE order_item_id='$booking_id'"));
-
-
-   wp_redirect(site_url().'/dashboard/?sc=booking-history');
     
-   exit;
+    //if (check_valid_token($booking_id, $token)) {
+        $user = get_user_by('email', $email);
+    
+        if (empty($user)) {
+            $username = substr($email, 0, strpos($email, '@'));
+            $password = wp_generate_password();
+            
+            $userdata = array(
+                'user_login' => $username,
+                'user_email' => $email,
+                'user_pass' => $password,
+                'role' => 'subscriber'
+            );
+            
+            $user_id = wp_insert_user($userdata);
+        } else {
+            $user_id = $user->ID;
+        }
+    //}
+        wp_set_current_user($user_id);
+    
+        wp_set_auth_cookie($user_id, false);
+  
+          global $wpdb;
+  
+      //   $wpdb->query($wpdb->prepare("UPDATE wpov_st_order_item_meta SET user_id='$user_id' WHERE wc_order_id='$booking_id'"));
+    
+      // more secure query
+  $wpdb->update(
+  'wpov_st_order_item_meta',
+  array('user_id' => $user_id),
+  array('wc_order_id' => $booking_id),
+  array('%d'),
+  array('%d')
+  );
+  
+    wp_redirect(site_url('/dashboard/?sc=booking-history'));    
+  }
 // } else {
 //     echo '<h1>Invalid Token</h1>';
 // }

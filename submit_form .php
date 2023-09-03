@@ -1,22 +1,26 @@
 <?php
 
   /**
-   * submit form php 
+   * submit form php page
    * 
    **/
-  
-   
+    // echo '<pre>';
+    //  var_dump(wc_get_order(16594));
+    // echo '</pre>';
+
    if (isset($_GET['submit'])) {
        $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';
        $submitted_email = isset($_GET['submitted_email']) ? $_GET['submitted_email'] : '';
    
-       $booking = get_post_meta($booking_id);
-    
-       $guest_email = $booking["st_email"][0];
-   
-       if ($booking && $guest_email == urldecode($submitted_email)) {
+       //$booking = get_post_meta($booking_id);
+       $booking = wc_get_order($booking_id);
 
-            $token = isset($booking["order_token_code"][0]) ? $booking["order_token_code"][0] : '';
+      // $guest_email = $booking["st_email"][0];
+      $guest_email = $booking->get_billing_email();
+
+       if ($booking && $guest_email == urldecode($submitted_email)) {
+            $post =get_post_meta($booking_id);
+            $token = isset($post["_order_key"][0]) ? $post["_order_key"][0] : '';
 
             if (empty($token)) {
                 echo 'Token not found in post meta.';
