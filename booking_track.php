@@ -14,5 +14,11 @@
     
 }
 
+function dashboard(){
+   include_once('dashboard.php');
+}
+
 add_shortcode( 'Booking_Track', 'booking_track_page' );
+add_shortcode( 'Dashboard', 'dashboard' );
+
 include_once('redirect.php');

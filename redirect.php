@@ -64,7 +64,7 @@ add_action( 'rest_api_init', function () {
   array('%d')
   );
   
-    wp_redirect(site_url('/dashboard/?sc=booking-history'));    
+    wp_redirect(site_url('/dashboard/?user_id='.$user_id));    
   }
 // } else {
 //     echo '<h1>Invalid Token</h1>';

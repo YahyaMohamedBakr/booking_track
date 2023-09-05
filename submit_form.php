@@ -5,7 +5,7 @@
    * 
    **/
     // echo '<pre>';
-    //  var_dump(wc_get_order(16594));
+    //   var_dump(get_post_meta(16617));
     // echo '</pre>';
 
    if (isset($_GET['submit'])) {
