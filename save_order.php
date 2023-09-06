@@ -1,5 +1,7 @@
 <?php 
-
+/**
+ * save order server side
+ */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderId = $_POST['orderId'];
@@ -7,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newCheckIn = $_POST['checkIn'];
     $newCheckOut = $_POST['checkOut'];
 
+
+    //include_once(ABSPATH.'config.php');
     // connect with database
     $servername = "localhost";
     $username = "root";
