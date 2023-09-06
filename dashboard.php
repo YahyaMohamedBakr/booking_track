@@ -26,10 +26,12 @@ $results = $wpdb->get_results($queryUser);
 // echo'<pre>';
 // var_dump($results);
 // echo'</pre>';
-include_once('pages/html/dashboard_front.php');
+include_once('pages/view/dashboard_front.php');
 
 
 }
 
 ?>
+
+
 

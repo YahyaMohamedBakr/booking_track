@@ -70,7 +70,7 @@
                     var newCheckOut = $row.find('[data-field-name="check_out"] .edit-field').val();
                     //send with ajax to server
                     $.ajax({
-                        url: '../wp-content/plugins/booking_track/save_order.php',
+                        url: '../../wp-content/plugins/booking_track/save_order.php?user_id='.$user_id,
                         method: 'POST',
                         data: {
                             orderId: orderId,
