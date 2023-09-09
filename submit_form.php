@@ -39,7 +39,7 @@
        }
    }
  
-    include_once('pages/view/form.html');
+    include_once('pages/html/form.html');
     
     ?>
 

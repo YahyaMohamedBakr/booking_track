@@ -57,7 +57,7 @@ add_action( 'rest_api_init', function () {
     
       // more secure query
   $wpdb->update(
-  'wpov_st_order_item_meta',
+    $wpdb->prefix.'st_order_item_meta',
   array('user_id' => $user_id),
   array('wc_order_id' => $booking_id),
   array('%d'),
