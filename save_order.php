@@ -57,7 +57,6 @@ $results = $wpdb->get_results($queryUser);
 
     echo json_encode('success');
  
-    // $conn->close();
    
    
     

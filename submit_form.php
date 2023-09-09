@@ -4,9 +4,7 @@
    * submit form php page
    * 
    **/
-    // echo '<pre>';
-    //   var_dump(get_post_meta(16617));
-    // echo '</pre>';
+  
 
    if (isset($_GET['submit'])) {
        $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';

@@ -28,7 +28,6 @@ add_action( 'rest_api_init', function () {
     }
     
     
-    //if (check_valid_token($booking_id, $token)) {
         $user = get_user_by('email', $email);
     
         if (empty($user)) {
@@ -46,14 +45,13 @@ add_action( 'rest_api_init', function () {
         } else {
             $user_id = $user->ID;
         }
-    //}
+  
         wp_set_current_user($user_id);
     
         wp_set_auth_cookie($user_id, false);
   
           global $wpdb;
   
-      //   $wpdb->query($wpdb->prepare("UPDATE wpov_st_order_item_meta SET user_id='$user_id' WHERE wc_order_id='$booking_id'"));
     
       // more secure query
   $wpdb->update(
@@ -66,38 +64,3 @@ add_action( 'rest_api_init', function () {
   
     wp_redirect(site_url('/dashboard/?user_id='.$user_id));    
   }
-// } else {
-//     echo '<h1>Invalid Token</h1>';
-// }
-
-// function check_valid_token($e, $t) {
-//     $args = array(
-//         'post_type' => 'wp_postmeta', 
-//         'meta_query' => array(
-//             'relation' => 'AND',
-//             array(
-//                 'key' => 'st_email',
-//                 'value' => $e,
-//                 'compare' => '='
-//             ),
-//             array(
-//                 'key' => 'order_token_code',
-//                 'value' => $t,
-//                 'compare' => '='
-//             )
-//         )
-//     );
-
-//     $query = new WP_Query($args);
-
-//     if ($query->have_posts()) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-
-
-
-
