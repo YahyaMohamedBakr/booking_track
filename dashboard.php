@@ -3,16 +3,13 @@
  * dashboard page 
  * 
  */
- global $wpdb;
+global $wpdb;
 
 
 $user_id=$_GET['user_id'];
 $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
 
 $results = $wpdb->get_results($queryUser);
-
-
-
 
 ?>
 

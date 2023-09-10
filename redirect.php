@@ -4,7 +4,7 @@
    * 
    **/
 
-
+//endpoint to handel email link auth 
 add_action( 'rest_api_init', function () {
     register_rest_route( 'booking','/getbookingedites', array(
       'methods' => 'GET',
@@ -19,7 +19,7 @@ add_action( 'rest_api_init', function () {
     $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';
     $token = isset($_GET['token']) ? $_GET['token'] : '';
     
-    
+    //validation link
     if (empty($email) || empty($booking_id) || empty($token)) {
     
        
@@ -53,7 +53,8 @@ add_action( 'rest_api_init', function () {
           global $wpdb;
   
     
-      // more secure query
+      
+      // assigen booking to user in booking system by order_item_meta
   $wpdb->update(
     $wpdb->prefix.'st_order_item_meta',
   array('user_id' => $user_id),
@@ -62,5 +63,8 @@ add_action( 'rest_api_init', function () {
   array('%d')
   );
   
+    //assign booking to user in woocommerce by post meta
+    update_post_meta($booking_id, '_customer_user', $user_id);
+   
     wp_redirect(site_url('/dashboard/?user_id='.$user_id));    
   }
