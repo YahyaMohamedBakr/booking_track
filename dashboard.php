@@ -84,13 +84,14 @@ $results = $wpdb->get_results($queryUser);
                     var newCheckOut = $row.find('[data-field-name="check_out"] .edit-field').val();
 
                     $.ajax({
-                        url: '<?=site_url()?>/wp-json/booking/saveorder',
+                        url: '<?=site_url()?>/wp-json/booking/saveorder/',
                         method: 'POST',
                         data: {
                             orderId: orderId,
                             guestName: newGuestName,
                             checkIn: newCheckIn,
-                            checkOut: newCheckOut
+                            checkOut: newCheckOut,
+                            user_id: <?php $user_id?>
                         },
                         success: function(response) {
                             console.log(response);
