@@ -3,10 +3,16 @@
  * dashboard page 
  * 
  */
+
+ 
 global $wpdb;
 
 
-$user_id=$_GET['user_id'];
+//$user_id=$_GET['user_id'];
+$user_id=get_current_user_id();
+
+if(!$user_id) {echo "<h1>You do'nt have permission to show this page </h1>"; exit;};
+
 $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
 
 $results = $wpdb->get_results($queryUser);
