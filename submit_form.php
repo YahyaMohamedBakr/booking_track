@@ -10,11 +10,11 @@
        $booking_id = isset($_GET['booking_id']) ? $_GET['booking_id'] : '';
        $submitted_email = isset($_GET['submitted_email']) ? $_GET['submitted_email'] : '';
    
-       //$booking = get_post_meta($booking_id);
+ 
        $booking = wc_get_order($booking_id);
 
-      // $guest_email = $booking["st_email"][0];
-      $guest_email = $booking->get_billing_email();
+
+      $guest_email = empty($booking)? '': $booking->get_billing_email();
 
        if ($booking && $guest_email == urldecode($submitted_email)) {
             $post =get_post_meta($booking_id);
@@ -31,9 +31,9 @@
            $message = 'Click the following link to manage your booking: ' . $redirect_link;
            wp_mail($guest_email, $subject, $message);
            
-           echo '<h1 class ="sucsess">Check your Email for further instructions.</h1>';
+           echo '<div class = "am_sucsess"><h1 class ="sucsess">Check your Email for further instructions.</h1></div>';
        } else {
-           echo '<h1 class="error">Invalid email or booking</h1>';
+           echo '<div class = "am_error"><h1 class="error">Invalid email or booking</h1></div>';
        }
    }
  

@@ -8,7 +8,6 @@
 global $wpdb;
 
 
-//$user_id=$_GET['user_id'];
 $user_id=get_current_user_id();
 
 if(!$user_id) {echo "<h1>You do'nt have permission to show this page </h1>"; exit;};
@@ -16,7 +15,6 @@ if(!$user_id) {echo "<h1>You do'nt have permission to show this page </h1>"; exi
 $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
 
 $results = $wpdb->get_results($queryUser);
-//$orders =wc_get_orders([$user_id]);
 
 ?>
 
@@ -74,76 +72,7 @@ $results = $wpdb->get_results($queryUser);
     <!-- JavaScript Code -->
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <!-- <script>
-        $(document).ready(function() {
-            var table = $('#order-table').DataTable();
-
-           
-            //////////////////////////////////////////
-            $('.edit-button').on('click', function () {
-                var orderId = $(this).data('order-id');
-                var $row = $(this).closest('tr');
-                var $editButton = $(this);
-
-                if ($editButton.text() === 'Edit') {
-                   
-                    $row.find('td:not(:last-child)').each(function () {
-                        var $cell = $(this);
-                        var text = $cell.text();
-                        var fieldName = $cell.attr('data-field-name');
-
-                        if (fieldName === 'guest_name' || fieldName === 'check_in' || fieldName === 'check_out') {
-                            $cell.html('<input type="text" class="edit-field" value="' + text + '">');
-                        }
-                    });
-
-                    $editButton.text('Save');
-                } else {
-                    var newGuestName = $row.find('[data-field-name="guest_name"] .edit-field').val();
-                    var newCheckIn = $row.find('[data-field-name="check_in"] .edit-field').val();
-                    var newCheckOut = $row.find('[data-field-name="check_out"] .edit-field').val();
-                    var urlParams = new URLSearchParams(window.location.search);
-                    var user_id = urlParams.get('user_id');
-                    $.ajax({
-                        url: '<?=site_url()?>/wp-json/booking/saveorder',
-                        method: 'POST',
-                        data: {
-                            orderId: orderId,
-                            guestName: newGuestName,
-                            checkIn: newCheckIn,
-                            checkOut: newCheckOut,
-                            userId: JSON.stringify(user_id) 
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            if (response == 'success') {
-                                alert('Data saved successfully!');
-                                $row.find('td:not(:last-child)').each(function () {
-                                    var $cell = $(this);
-                                    var fieldName = $cell.attr('data-field-name');
-
-                                    if (fieldName === 'guest_name' || fieldName === 'check_in' || fieldName === 'check_out') {
-                                        var newValue = $cell.find('.edit-field').val();
-                                        $cell.html(newValue);
-                                    }
-                                });
-
-                                $editButton.text('Edit');
-                            } else {
-                                alert('Error saving data: ' + response);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            alert('Error communicating with the server: ' + error);
-                        }
-                    });
-                }
-            });
-
-         
-            });
-       
-    </script> -->
+   
     <script>
     $(document).ready(function() {
     var table = $('#order-table').DataTable();

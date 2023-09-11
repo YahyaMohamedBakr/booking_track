@@ -34,12 +34,12 @@ button:hover {
 }
 
 
-.error{
+h1.error{
 
     color: red;
 
 }
 
-.sucsess{
+h1.sucsess{
     color: green;
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Booking Track
  * Plugin URI: https://tawarly.com
- * Description: Easily set up a tracking page for your customers by placing the shortcode [Booking_Track]. Customers can use their email and booking number to access their tracking page. Once they click the link in the email, they can conveniently manage their bookings through their account.
+ * Description: Easily set up a tracking page for your customers by placing the shortcodes [Booking_Track], [Dashboard]. Customers can use their email and booking number to access their tracking page. Once they click the link in the email, they can conveniently manage their bookings through their account.
  * Author: Tawarly
  * Author URI: http://tawarly.com
  * Version: 1.0.0
