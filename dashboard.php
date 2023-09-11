@@ -153,7 +153,7 @@ $results = $wpdb->get_results($queryUser);
                     var user_id = urlParams.get('user_id');
             if (confirmCancel) {
                 $.ajax({
-                    url: '<?=site_url()?>/wp-json/booking/saveorder', 
+                    url: '<?=site_url()?>/wp-json/booking/cancelorder', 
                     method: 'POST',
                     data: {
                         orderId: orderId,

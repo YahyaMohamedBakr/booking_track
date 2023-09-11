@@ -6,7 +6,7 @@
 
 
  add_action( 'rest_api_init', function () {
-    register_rest_route( 'booking','/saveorder', array(
+    register_rest_route( 'booking','/cancelorder', array(
       'methods' => 'POST',
       'callback' => 'save_order',
       'permission_callback' => '__return_true'
