@@ -31,9 +31,9 @@
            $message = 'Click the following link to manage your booking: ' . $redirect_link;
            wp_mail($guest_email, $subject, $message);
            
-           echo 'Check your Email for further instructions.';
+           echo '<h1 class ="sucsess">Check your Email for further instructions.</h1>';
        } else {
-           echo 'Invalid email or booking';
+           echo '<h1 class="error">Invalid email or booking</h1>';
        }
    }
  

@@ -28,6 +28,7 @@ $results = $wpdb->get_results($queryUser);
     <title>Order History</title>
     <!-- Include DataTables CSS and JS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href=<?php $url =plugins_url()."/booking_track/pages/css/style.css"?>>
     
 </head>
 <body>
@@ -46,13 +47,20 @@ $results = $wpdb->get_results($queryUser);
                 </tr>
             </thead>
             <tbody>
+
+           
                 <?php foreach ($results as $order) : ?>
+
+                    <?php $id = isset($order->wc_order_id)?$order->wc_order_id:'';
+                    $woo_order = wc_get_order($id);
+                    $status = isset($woo_order)? $woo_order->get_status():'';
+                    ?>
                     <tr>
                         <td data-field-name="wc_order_id"><?php echo $order->wc_order_id; ?></td>
                         <td data-field-name="check_in"><?php echo $order->check_in; ?></td>
                         <td data-field-name="check_out"><?php echo $order->check_out; ?></td>
                         <td data-field-name="guest_name"><?php echo json_decode($order->raw_data)->guest_name[0]; ?></td>
-                        <td data-field-name="status"> <?php echo wc_get_order($order->wc_order_id)->get_status() ?></td>
+                        <td data-field-name="status"> <?php echo $status ?></td>
                         <!-- <td data-field-name="status"> <?php echo $order->status ?></td> -->
 
                         <td><button class="cancel-button" data-order-id="<?php echo $order->wc_order_id; ?>">cancel this booking</button></td>
