@@ -38,7 +38,7 @@ add_action( 'rest_api_init', function () {
                 'user_login' => $username,
                 'user_email' => $email,
                 'user_pass' => $password,
-                'role' => 'subscriber'
+                'role' => 'customer'
             );
             
             $user_id = wp_insert_user($userdata);

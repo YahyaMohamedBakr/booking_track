@@ -16,52 +16,27 @@
 
   function save_order(){
     
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $orderId = $_POST['orderId'];
-    $newGuestName = $_POST['guestName'];
-    $newCheckIn = $_POST['checkIn'];
-    $newCheckOut = $_POST['checkOut'];
+  $orderId = $_POST['orderId'];
+  $userId = json_decode($_POST['userId']) ;
 
-    $user_id=$_POST['userId'];
-    
-   global $wpdb;
-   $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
+  // $currentUserId = wp_get_current_user()->ID;
+  // if ($currentUserId != $userId) {
+  //     http_response_code(403); 
+  //     echo 'Access denied';
+  //     exit;
+  // }
 
-   $results = $wpdb->get_results($queryUser);
+  $order = wc_get_order($orderId);
+  $order->update_status('cancelled');
+  
+  echo json_encode('success'); 
 
- foreach ($results as $order) {
-    $data= json_decode($order->raw_data);
-    $data->guest_name[0] = $newGuestName;
-    $data=json_encode($data);
-    //echo'';   
- }
-
-
- $wpdb->update(
-  $wpdb->prefix.'st_order_item_meta',
-     array(
-         'raw_data' => $data,
-         'check_in' => $newCheckIn,
-         'check_out' => $newCheckOut
-     ),
-     array('wc_order_id' => $orderId),
-     array(
-         '%s', // Format for 'guest_name', assuming it's a string
-         '%s', // Format for 'check_in', assuming it's a string
-         '%s'  // Format for 'check_out', assuming it's a string
-     ),
-     array('%d') // Format for 'order_id', assuming it's an integer
- );
- 
-
-    echo json_encode('success');
- 
-   
-   
-    
+  
 } else {
-    http_response_code(400); 
-    echo 'Invalid request';
+  http_response_code(400); 
+  echo 'Invalid request';
 }
 
   }

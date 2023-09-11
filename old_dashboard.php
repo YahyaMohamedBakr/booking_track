@@ -16,7 +16,6 @@ if(!$user_id) {echo "<h1>You do'nt have permission to show this page </h1>"; exi
 $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
 
 $results = $wpdb->get_results($queryUser);
-//$orders =wc_get_orders([$user_id]);
 
 ?>
 
@@ -40,8 +39,6 @@ $results = $wpdb->get_results($queryUser);
                     <th>Check-In</th>
                     <th>Check-Out</th>
                     <th>Guest Name</th>
-                    <th>Status</th>
-                    <!-- <th>Status2</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -52,10 +49,7 @@ $results = $wpdb->get_results($queryUser);
                         <td data-field-name="check_in"><?php echo $order->check_in; ?></td>
                         <td data-field-name="check_out"><?php echo $order->check_out; ?></td>
                         <td data-field-name="guest_name"><?php echo json_decode($order->raw_data)->guest_name[0]; ?></td>
-                        <td data-field-name="status"> <?php echo wc_get_order($order->wc_order_id)->get_status() ?></td>
-                        <!-- <td data-field-name="status"> <?php echo $order->status ?></td> -->
-
-                        <td><button class="cancel-button" data-order-id="<?php echo $order->wc_order_id; ?>">cancel this booking</button></td>
+                        <td><button class="edit-button" data-order-id="<?php echo $order->wc_order_id; ?>">Edit</button></td>
                     </tr>
 
                 <?php endforeach; ?>
@@ -66,7 +60,7 @@ $results = $wpdb->get_results($queryUser);
     <!-- JavaScript Code -->
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-    <!-- <script>
+    <script>
         $(document).ready(function() {
             var table = $('#order-table').DataTable();
 
@@ -104,7 +98,7 @@ $results = $wpdb->get_results($queryUser);
                             guestName: newGuestName,
                             checkIn: newCheckIn,
                             checkOut: newCheckOut,
-                            userId: JSON.stringify(user_id) 
+                            userId:  JSON.stringify(user_id)
                         },
                         success: function(response) {
                             console.log(response);
@@ -135,47 +129,7 @@ $results = $wpdb->get_results($queryUser);
          
             });
        
-    </script> -->
-    <script>
-    $(document).ready(function() {
-    var table = $('#order-table').DataTable();
-
-    // ...
-
-    $('.cancel-button').on('click', function () {
-        var orderId = $(this).data('order-id');
-        var $row = $(this).closest('tr');
-        var $cancelButton = $(this);
-
-            var confirmCancel = confirm('Are you sure you want to cancel this order?');
-           
-            var urlParams = new URLSearchParams(window.location.search);
-                    var user_id = urlParams.get('user_id');
-            if (confirmCancel) {
-                $.ajax({
-                    url: '<?=site_url()?>/wp-json/booking/saveorder', 
-                    method: 'POST',
-                    data: {
-                        orderId: orderId,
-                        userId: user_id
-                    },
-                    success: function(response) {
-                        if (response === 'success') {
-                            alert('Order canceled successfully!');
-                            $row.find('[data-field-name="status"]').text('canceled');
-                        } else {
-                            alert('Error canceling order: ' + response);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert('Error communicating with the server: ' + error);
-                    }
-                });
-            }
-   
-    });
-});
-</script>
+    </script>
 
 </body>
 </html>
