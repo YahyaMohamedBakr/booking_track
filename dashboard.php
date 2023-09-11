@@ -85,14 +85,14 @@ $results = $wpdb->get_results($queryUser);
                     var urlParams = new URLSearchParams(window.location.search);
                     var user_id = urlParams.get('user_id');
                     $.ajax({
-                        url: '<?=site_url()?>/wp-json/booking/saveorder/',
+                        url: '<?=site_url()?>/wp-json/booking/saveorder',
                         method: 'POST',
                         data: {
                             orderId: orderId,
                             guestName: newGuestName,
                             checkIn: newCheckIn,
                             checkOut: newCheckOut,
-                            userId:  $user_id
+                            userId:  user_id
                         },
                         success: function(response) {
                             console.log(response);
