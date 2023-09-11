@@ -25,16 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id=$_POST['userId'];
     
    global $wpdb;
-$queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
+   $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
 
-$results = $wpdb->get_results($queryUser);
+   $results = $wpdb->get_results($queryUser);
 
  foreach ($results as $order) {
-
     $data= json_decode($order->raw_data);
     $data->guest_name[0] = $newGuestName;
     $data=json_encode($data);
-   echo'';   
+    //echo'';   
  }
 
 

@@ -65,7 +65,7 @@ $results = $wpdb->get_results($queryUser);
             var table = $('#order-table').DataTable();
 
            
-//////////////////////////////////////////
+            //////////////////////////////////////////
             $('.edit-button').on('click', function () {
                 var orderId = $(this).data('order-id');
                 var $row = $(this).closest('tr');
