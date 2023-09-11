@@ -82,7 +82,8 @@ $results = $wpdb->get_results($queryUser);
                     var newGuestName = $row.find('[data-field-name="guest_name"] .edit-field').val();
                     var newCheckIn = $row.find('[data-field-name="check_in"] .edit-field').val();
                     var newCheckOut = $row.find('[data-field-name="check_out"] .edit-field').val();
-
+                    var urlParams = new URLSearchParams(window.location.search);
+                    var user_id = urlParams.get('user_id');
                     $.ajax({
                         url: '<?=site_url()?>/wp-json/booking/saveorder/',
                         method: 'POST',
@@ -91,7 +92,7 @@ $results = $wpdb->get_results($queryUser);
                             guestName: newGuestName,
                             checkIn: newCheckIn,
                             checkOut: newCheckOut,
-                            user_id: <?php $user_id?>
+                            userId:  $user_id
                         },
                         success: function(response) {
                             console.log(response);

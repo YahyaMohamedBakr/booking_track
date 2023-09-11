@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newCheckIn = $_POST['checkIn'];
     $newCheckOut = $_POST['checkOut'];
 
-    $user_id=$_POST['user_id'];
+    $user_id=$_POST['userId'];
     
    global $wpdb;
 $queryUser = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}st_order_item_meta WHERE user_id = %d", $user_id);
